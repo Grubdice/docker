@@ -8,6 +8,8 @@ WORKDIR /grubdice
 RUN git checkout production 
 RUN ./gradlew war
 RUN rm -rf /var/lib/tomcat7/webapps/ROOT
-#RUN unzip build/libs/grubdice.war /var/lib/tomcat7/webapps/ROOT
+RUN unzip /grubdice/build/libs/grubdice.war -d /var/lib/tomcat7/webapps/ROOT
 
-#ENTRYPOINT service nginx start && service tomcat7 start && tail -f /var/log/tomcat7/catalina.out
+RUN echo 'JAVA_OPTS="${JAVA_OPTS} -Dspring.profiles.active=prod "' >> /etc/default/tomcat7
+
+ENTRYPOINT service nginx start && service tomcat7 start && tail -f /var/log/tomcat7/catalina.out
