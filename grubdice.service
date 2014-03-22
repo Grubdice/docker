@@ -1,0 +1,14 @@
+[Unit]
+Description=Grubdice Service
+After=etcd.service
+After=docker.service
+After=postgres.service
+
+[Service]
+ExecStart=/bin/bash -c '/usr/bin/docker start -a grubdice-prod || /usr/bin/docker run -d --name grubdice-prod --link postgres:db -p 80:80 grubdice/grubdice'
+ExecStartPost=/usr/bin/etcdctl set /domains/grubdice.co/%H:%i running
+ExecStop=/usr/bin/docker stop grubdice-prod
+ExecStopPost=/usr/bin/etcdctl rm /domains/example.com/%H:%i
+
+[Install]
+WantedBy=local.target
