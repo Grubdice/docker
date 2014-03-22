@@ -32,9 +32,12 @@ USER postgres
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-RUN    /etc/init.d/postgresql start &&\
+RUN /etc/init.d/postgresql start &&\
     psql --command "CREATE USER grubdice WITH SUPERUSER PASSWORD 'grubdice';" &&\
     createdb -O grubdice grubdice
+
+RUN psql --command "CREATE USER grubdice_qa WITH SUPERUSER PASSWORD 'grubdice_qa';" &&\
+    createdb -O grubdice_qa grubdice_qa
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
