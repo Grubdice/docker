@@ -8,7 +8,7 @@ After=postgres.service
 ExecStart=/bin/bash -c '/usr/bin/docker start -a grubdice-prod || /usr/bin/docker run -d --name grubdice-prod --link postgres:db -p 80:80 grubdice/grubdice'
 ExecStartPost=/usr/bin/etcdctl set /domains/grubdice.co/%H:%i running
 ExecStop=/usr/bin/docker stop grubdice-prod
-ExecStopPost=/usr/bin/etcdctl rm /domains/example.com/%H:%i
+ExecStopPost=/usr/bin/etcdctl rm /domains/grubdice.co/%H:%i
 
 [Install]
 WantedBy=local.target

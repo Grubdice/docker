@@ -7,7 +7,7 @@ After=docker.service
 ExecStart=/bin/bash -c '/usr/bin/docker start -a postgres || /usr/bin/docker run -d --name postgres grubdice/postgres'
 ExecStartPost=/usr/bin/etcdctl set /database/grubdice.co/%H:%i running
 ExecStop=/usr/bin/docker stop postgres
-ExecStopPost=/usr/bin/etcdctl rm /database/example.com/%H:%i
+ExecStopPost=/usr/bin/etcdctl rm /database/grubdice.co/%H:%i
 
 [Install]
 WantedBy=local.target
