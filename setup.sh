@@ -13,5 +13,10 @@ pushd grubdice
 docker build -t 'grubdice/grubdice' .
 popd
 
-docker run -d --name postgres grubdice/postgres
-docker run -d --name grubdice-prod --link postgres:db -p 80:80 grubdice/grubdice
+cp services/postgres.service /media/state/units
+sudo systemctl link --runtime /media/state/units/postgres.service
+sudo systemctl start postgres.service
+
+cp services/grubdice.service /media/state/units
+sudo systemctl link --runtime /media/state/units/grubdice.service
+sudo systemctl start grubdice.service
