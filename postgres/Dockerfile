@@ -36,7 +36,8 @@ RUN /etc/init.d/postgresql start &&\
     psql --command "CREATE USER grubdice WITH SUPERUSER PASSWORD 'grubdice';" &&\
     createdb -O grubdice grubdice
 
-RUN psql --command "CREATE USER grubdice_qa WITH SUPERUSER PASSWORD 'grubdice_qa';" &&\
+RUN /etc/init.d/postgresql start &&\
+    psql --command "CREATE USER grubdice_qa WITH SUPERUSER PASSWORD 'grubdice_qa';" &&\
     createdb -O grubdice_qa grubdice_qa
 
 # Adjust PostgreSQL configuration so that remote connections to the
