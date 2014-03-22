@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
     config.vm.box_url = "http://storage.core-os.net/coreos/amd64-generic/dev-channel/coreos_production_vagrant.box"
 
     config.vm.provision "shell", path: "https://raw.githubusercontent.com/Grubdice/docker/master/setup.sh"
+    config.vm.network "forwarded_port", guest: 80, host: 8080
 
     # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
     # config.vm.network "private_network", ip: "172.12.8.150"
